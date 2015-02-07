@@ -1,0 +1,26 @@
+{
+  "name": "flux-react-chat",
+  "version": "1.0.0",
+  "description": "A simple test to use Flux with ReactJS within a Chat application",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/XescuGC/flux-react-chat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XescuGC/flux-react-chat/issues"
+  },
+  "homepage": "https://github.com/XescuGC/flux-react-chat",
+  "dependencies": {
+    "flux": "^2.0.1",
+    "react": "^0.12.2"
+  },
+  "devDependencies": {
+    "browserify": "^8.1.3"
+  }
+}

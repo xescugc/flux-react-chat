@@ -77,3 +77,6 @@ $RECYCLE.BIN/
 
 # sftp configuration file
 sftp-config.json
+
+# npm
+node_modules/
