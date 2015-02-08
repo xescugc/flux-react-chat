@@ -17,10 +17,22 @@
   },
   "homepage": "https://github.com/XescuGC/flux-react-chat",
   "dependencies": {
+    "bootstrap": "^3.3.2",
     "flux": "^2.0.1",
+    "keymirror": "^0.1.1",
     "react": "^0.12.2"
   },
   "devDependencies": {
-    "browserify": "^8.1.3"
+    "bootstrap": "^3.3.2",
+    "browserify": "^8.1.3",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.3.0",
+    "grunt-contrib-connect": "^0.9.0",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-jsxhint": "^0.5.0",
+    "react-bootstrap": "^0.13.3",
+    "react-tools": "^0.12.2",
+    "reactify": "^1.0.0"
   }
 }
