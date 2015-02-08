@@ -80,3 +80,4 @@ sftp-config.json
 
 # npm
 node_modules/
+js/bundle.js
