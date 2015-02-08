@@ -35,6 +35,7 @@ module.exports = function(grunt) {
           '<%= paths.index %>/js/**/*.react.js',
         ],
         tasks: [
+          'jshint',
           'browserify'
         ]
       }
@@ -48,7 +49,8 @@ module.exports = function(grunt) {
         ],
       },
       all: [
-        '<%= paths.index %>/{,*/}*.js'
+        '<%= paths.index %>/js/**/*.js',
+        '<%= paths.index %>/js/**/*.react.js'
       ],
     }
   });
