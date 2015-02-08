@@ -1,13 +1,55 @@
 var React  = require('react');
-var BPanel = require('react-bootstrap').Panel
+var BPanel = require('react-bootstrap').Panel;
+var MessageStore = require('../stores/MessageStore');
+var MessageInput = require('./MessageInput.react');
+var MessageItem = require('./MessageItem.react');
+var _ = require('underscore');
+
+
+var getStateFromStores = function() {
+  return {
+    messages: MessageStore.getAll()
+  };
+};
+
+var getMessageItem = function(message) {
+  return (
+    <MessageItem
+      message={message}
+    />
+  );
+};
 
 var MessageSection = React.createClass({
+
+  componentDidMount: function() {
+    MessageStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount: function() {
+    MessageStore.removeChangeListener(this._onChange);
+  },
+
   render: function() {
+    var messagesListItems;
+    if (this.state !== null) {
+      messagesListItems = _.map(this.state.messages, getMessageItem);
+    } else {
+      messagesListItems = 'No Messages';
+    }
+    console.log(messagesListItems);
     return (
-      <BPanel header={'Conversations'}>
+      <BPanel header={'Chat'}>
+        {messagesListItems}
+        <MessageInput />
       </BPanel>
-    )
+    );
+  },
+
+  _onChange: function(event) {
+    this.setState(getStateFromStores());
   }
-})
+
+});
 
 module.exports = MessageSection;
