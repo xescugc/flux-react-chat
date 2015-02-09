@@ -15,6 +15,7 @@ var getStateFromStores = function() {
 var getMessageItem = function(message) {
   return (
     <MessageItem
+      key={message.id}
       message={message}
     />
   );
@@ -37,7 +38,6 @@ var MessageSection = React.createClass({
     } else {
       messagesListItems = 'No Messages';
     }
-    console.log(messagesListItems);
     return (
       <BPanel header={'Chat'}>
         {messagesListItems}
