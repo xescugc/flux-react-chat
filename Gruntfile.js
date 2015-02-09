@@ -14,15 +14,28 @@ module.exports = function(grunt) {
         }
       }
     },
-    connect: {
-      server: {
+    concurrent: {
+      dev: {
+        tasks: ['nodemon', 'watch'],
         options: {
-          port: 3000,
-          base: '<%= paths.index %>',
-          livereload: true
+          logConcurrentOutput: true
         }
       }
     },
+    nodemon: {
+      dev: {
+        script: 'server.js'
+      }
+    },
+    //connect: {
+      //server: {
+        //options: {
+          //port: 3000,
+          //base: '<%= paths.index %>',
+          //livereload: true
+        //}
+      //}
+    //},
     watch: {
       options: {
         spawn: false,
@@ -30,7 +43,7 @@ module.exports = function(grunt) {
       },
       dev: {
         files: [
-          'Gruntfile.js', 'index.html',
+          'Gruntfile.js', 'index.html', 'server.js',
           '<%= paths.index %>/js/**/*.js',
           '<%= paths.index %>/js/**/*.react.js',
         ],
@@ -42,15 +55,18 @@ module.exports = function(grunt) {
     },
     jshint: {
       options: {
+        force: true,
         jshintrc: '.jshintrc',
         ignores: [
           '<%= paths.index %>/node_modules/',
           '<%= paths.index %>/js/bundle.js'
         ],
+        reporter: require('jshint-stylish')
       },
       all: [
+        'Gruntfile.js', 'index.html', 'server.js',
         '<%= paths.index %>/js/**/*.js',
-        '<%= paths.index %>/js/**/*.react.js'
+        '<%= paths.index %>/js/**/*.react.js',
       ],
     }
   });
@@ -59,11 +75,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-jsxhint');
+  grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   grunt.registerTask('default', [
     'jshint',
     'browserify',
-    'connect',
-    'watch'
+    'concurrent:dev'
   ]);
 };
