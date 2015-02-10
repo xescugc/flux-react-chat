@@ -8,11 +8,17 @@ var MessageItem = React.createClass({
 
   render: function() {
     return (
-      <BWell>
-        <div className='pull-right'>
+      <div className='media'>
+        <div className='media-left'>
+          <img src='http://placehold.it/64x64'/>
+        </div>
+        <div className='media-body'>
+          <h4 className='media-heading'>
+            Owner
+          </h4>
           {this.props.message.text}
         </div>
-      </BWell>
+      </div>
     );
   }
 });
