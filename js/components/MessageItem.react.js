@@ -1,5 +1,4 @@
 var React  = require('react');
-var BWell = require('react-bootstrap').Well;
 
 var MessageItem = React.createClass({
   propTypes: {

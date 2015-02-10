@@ -1,11 +1,23 @@
 var React  = require('react');
-var BPanel = require('react-bootstrap').Panel;
 
 var ConversationSection = React.createClass({
   render: function() {
+    var buttonStyles = {
+      marginTop: '-28px',
+    };
     return (
-      <BPanel header={'Conversations'}>
-      </BPanel>
+      <div className='panel panel-default'>
+        <div className='panel-heading'>
+          <div className='panel-title'>{'Conversations'}</div>
+          <div className='pull-right' style={buttonStyles}>
+            <button className='btn btn-primary' >
+              <span className="glyphicon glyphicon-plus"></span>
+            </button>
+          </div>
+        </div>
+        <div className='panel-body'>
+        </div>
+      </div>
     );
   }
 });

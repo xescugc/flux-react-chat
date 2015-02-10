@@ -1,7 +1,4 @@
 var React  = require('react');
-var BInput = require('react-bootstrap').Input;
-var BButton = require('react-bootstrap').Button;
-var BGlyphicon = require('react-bootstrap').Glyphicon;
 var ChatMessageActionCreators = require('../actions/ChatMessageActionCreators');
 var s = require('underscore.string');
 
@@ -19,11 +16,16 @@ var MessageInput = React.createClass({
   render: function() {
     var d = this.state.canSend ? false : true;
     return (
-      <BInput type='text' value={this.state.text} onChange={this._onChange} onKeyDown={this._onKeyDownSendInput} buttonAfter={
-        <BButton onClick={this._onClickSend} bsStyle='primary' disabled={d}>
-          <BGlyphicon glyph='send' />
-        </BButton>
-      }/>
+      <div className='form-group'>
+        <div className='input-group'>
+          <input type='text' className='form-control' value={this.state.text} onChange={this._onChange} onKeyDown={this._onKeyDownSendInput}/> 
+          <span className='input-group-btn'>
+            <button onClick={this._onClickSend} className='btn btn-primary' disabled={d}>
+              <span className="glyphicon glyphicon-send"></span>
+            </button>
+          </span>
+        </div>
+      </div> 
     );
   },
 

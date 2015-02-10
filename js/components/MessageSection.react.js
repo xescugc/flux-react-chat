@@ -1,5 +1,4 @@
 var React  = require('react');
-var BPanel = require('react-bootstrap').Panel;
 var MessageStore = require('../stores/MessageStore');
 var MessageInput = require('./MessageInput.react');
 var MessageItem = require('./MessageItem.react');
@@ -39,10 +38,13 @@ var MessageSection = React.createClass({
       messagesListItems = 'No Messages';
     }
     return (
-      <BPanel header={'Chat'}>
-        {messagesListItems}
-        <MessageInput />
-      </BPanel>
+      <div className='panel panel-default'>
+        <div className='panel-heading'> {'Chat'} </div>
+        <div className='panel-body'>
+          {messagesListItems}
+          <MessageInput />
+        </div>
+      </div>
     );
   },
 

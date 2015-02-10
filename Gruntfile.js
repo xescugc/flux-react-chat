@@ -87,7 +87,7 @@ module.exports = function(grunt) {
         reporter: require('jshint-stylish')
       },
       all: [
-        'Gruntfile.js', 'index.html', 'server.js',
+        'Gruntfile.js', 'server.js',
         '<%= paths.index %>/js/**/*.js',
         '<%= paths.index %>/js/**/*.react.js',
       ],
