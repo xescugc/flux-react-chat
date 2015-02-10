@@ -82,3 +82,4 @@ sftp-config.json
 node_modules/
 js/bundle.js
 npm-debug.log
+.rebooted
