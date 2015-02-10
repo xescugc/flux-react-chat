@@ -13,15 +13,34 @@ app.use(function(err, req, res, next){
 });
 
 
-//var server = http.createServer(app);
-
-app.get('/api/test', function(req, res) {
-  res.send({
-    'hi': 'true'
-  });
-})
+var router = express.Router();
 
 
+router.route('/conversations')
+  .get(function(req, res, next) {
+  })
+  .post(function(req, req, next) {
+  })
+
+router.route('/conversations/:id')
+  .get(function(req, res, next) {
+  })
+  .put(function(req, res, next) {
+  })
+  .delete(function(req, req, next) {
+  })
+
+router.route('/conversations/:conversation_id/messages')
+  .get(function(req, res, next) {
+  })
+  .post(function(req, req, next) {
+  })
+
+app.use('/api', router);
+
+app.get('/_routes', function(req, res, next) {
+  res.send(router.stack);
+});
 
 app.listen(process.env.PORT || 5000);
 
