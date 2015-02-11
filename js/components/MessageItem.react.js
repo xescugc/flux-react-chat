@@ -2,7 +2,7 @@ var React  = require('react');
 
 var MessageItem = React.createClass({
   propTypes: {
-    message: React.PropTypes.object
+    message: React.PropTypes.object.isRequired
   },
 
   render: function() {

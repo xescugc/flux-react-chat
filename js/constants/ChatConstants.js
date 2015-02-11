@@ -1,11 +1,12 @@
-var KeyMirror = require('keymirror');
+var keyMirror = require('keymirror');
 
 module.exports = {
-  ActionTypes: KeyMirror({
-    CREATE_MESSAGE: null
+  ActionTypes: keyMirror({
+    CREATE_MESSAGE: null,
+    CREATE_CONVERSATION: null
   }),
 
-  PayloadSources: KeyMirror({
+  PayloadSources: keyMirror({
     VIEW_ACTION: null
   })
 };

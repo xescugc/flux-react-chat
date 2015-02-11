@@ -1,24 +1,23 @@
-var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
 var ChatConstants = require('../constants/ChatConstants');
+var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('underscore');
 
-var _messages = [];
+var _conversations = [];
 var CHANGE_EVENT = 'change';
 var ActionTypes = ChatConstants.ActionTypes;
 
-var MessageStore = _.extend({}, EventEmitter.prototype, {
-  getCreatedMessageData: function(text) {
+var ConversationStore = _.extend({}, EventEmitter.prototype, {
+  getCreatedConversationData: function(title) {
     var date = Date.now();
     return {
-      id:      'm_' + date,
-      date:    new Date(date),
-      text:    text,
-      isRead:  true
+      id:     'm_' + date,
+      date:   new Date(date),
+      title:  title
     };
   },
   getAll: function() {
-    return _messages;
+    return _conversations;
   },
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -31,17 +30,17 @@ var MessageStore = _.extend({}, EventEmitter.prototype, {
   }
 });
 
-MessageStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
+ConversationStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
   var action = payload.action;
 
   switch(action.type) {
-    case ActionTypes.CREATE_MESSAGE:
-      var message = MessageStore.getCreatedMessageData(action.text);
-      _messages.push(message);
-      MessageStore.emitChange();
+    case ActionTypes.CREATE_CONVERSATION:
+      var conversation = ConversationStore.getCreatedConversationData(action.title);
+      _conversations.push(conversation);
+      ConversationStore.emitChange(); 
       break;
     default:
   }
 });
 
-module.exports = MessageStore;
+module.exports = ConversationStore;

@@ -3,10 +3,10 @@ var ChatConstants = require('../constants/ChatConstants');
 var ActionTypes = ChatConstants.ActionTypes;
 
 module.exports = {
-  createMessage: function(text) {
+  createConversation: function(title) {
     ChatAppDispatcher.handleViewAction({
-      type: ActionTypes.CREATE_MESSAGE,
-      text: text
+      type: ActionTypes.CREATE_CONVERSATION,
+      title: title
     });
   }
 };

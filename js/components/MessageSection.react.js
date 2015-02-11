@@ -24,10 +24,12 @@ var MessageSection = React.createClass({
 
   componentDidMount: function() {
     MessageStore.addChangeListener(this._onChange);
+    //ConversationStore.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function() {
     MessageStore.removeChangeListener(this._onChange);
+    //ConversationStore.removeChangeListener(this._onChange);
   },
 
   render: function() {
