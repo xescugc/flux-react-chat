@@ -1,10 +1,16 @@
 var express = require('express');
 var gzippo = require('gzippo');
 var morgan  = require('morgan');
+var bodyParser = require('body-parser');
+var multer = require('multer'); 
+
 
 var app = express();
 
-app.set('port', process.env.PORT || 5000);
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(multer()); // for parsing multipart/form-data
+
 app.use(morgan('tiny'));
 app.use(gzippo.staticGzip('' + __dirname));
 app.use(function(err, req, res, next){
@@ -16,13 +22,15 @@ app.use(function(err, req, res, next){
 var router = express.Router();
 
 
-router.route('/conversations')
+router.route('/rooms')
   .get(function(req, res, next) {
   })
-  .post(function(req, req, next) {
+  .post(function(req, res, next) {
+    //console.log(req.body);
+    res.status(202).send(req.body);
   })
 
-router.route('/conversations/:id')
+router.route('/rooms/:id')
   .get(function(req, res, next) {
   })
   .put(function(req, res, next) {
@@ -30,7 +38,7 @@ router.route('/conversations/:id')
   .delete(function(req, req, next) {
   })
 
-router.route('/conversations/:conversation_id/messages')
+router.route('/rooms/:room_id/messages')
   .get(function(req, res, next) {
   })
   .post(function(req, req, next) {
@@ -42,6 +50,11 @@ app.get('/_routes', function(req, res, next) {
   res.send(router.stack);
 });
 
-app.listen(process.env.PORT || 5000);
+var server = app.listen((process.env.PORT || 5000), function () {
 
-console.log('Express app started on port %d', app.get('port'));
+  var host = server.address().address
+  var port = server.address().port
+
+  console.log('Express app listening at http://%s:%s', host, port)
+
+})

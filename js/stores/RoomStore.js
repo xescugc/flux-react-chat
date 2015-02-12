@@ -3,12 +3,12 @@ var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var _ = require('underscore');
 
-var _conversations = [];
+var _rooms = [];
 var CHANGE_EVENT = 'change';
 var ActionTypes = ChatConstants.ActionTypes;
 
-var ConversationStore = _.extend({}, EventEmitter.prototype, {
-  getCreatedConversationData: function(title) {
+var RoomStore = _.extend({}, EventEmitter.prototype, {
+  getCreatedRoomData: function(title) {
     var date = Date.now();
     return {
       id:     'm_' + date,
@@ -17,7 +17,7 @@ var ConversationStore = _.extend({}, EventEmitter.prototype, {
     };
   },
   getAll: function() {
-    return _conversations;
+    return _rooms;
   },
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -30,17 +30,17 @@ var ConversationStore = _.extend({}, EventEmitter.prototype, {
   }
 });
 
-ConversationStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
+RoomStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
   var action = payload.action;
 
   switch(action.type) {
-    case ActionTypes.CREATE_CONVERSATION:
-      var conversation = ConversationStore.getCreatedConversationData(action.title);
-      _conversations.push(conversation);
-      ConversationStore.emitChange(); 
+    case ActionTypes.CREATE_ROOM:
+      var conversation = RoomStore.getCreatedRoomData(action.title);
+      _rooms.push(conversation);
+      RoomStore.emitChange(); 
       break;
     default:
   }
 });
 
-module.exports = ConversationStore;
+module.exports = RoomStore;

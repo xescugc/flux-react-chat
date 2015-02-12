@@ -1,31 +1,31 @@
 var React  = require('react');
 var _ = require('underscore');
-var ConversationStore = require('../stores/ConversationStore');
-var ChatConversationActionCreators = require('../actions/ChatConversationActionCreators');
-var ConversationItem = require('./ConversationItem.react');
+var RoomStore = require('../stores/RoomStore');
+var ChatRoomActionCreators = require('../actions/ChatRoomActionCreators');
+var RoomItem = require('./RoomItem.react');
 
 var getStateFromStores = function() {
   return {
-    conversations: ConversationStore.getAll()
+    rooms: RoomStore.getAll()
   }
 };
 
-var getConversationItem = function(conversation) {
+var getRoomItem = function(conversation) {
   return (
-    <ConversationItem
+    <RoomItem
       key={conversation.id}
       conversation={conversation}
     />
   );
 };
 
-var ConversationSection = React.createClass({
+var RoomSection = React.createClass({
   componentDidMount: function() {
-    ConversationStore.addChangeListener(this._onChange);
+    RoomStore.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function() {
-    ConversationStore.removeChangeListener(this._onChange);
+    RoomStore.removeChangeListener(this._onChange);
   },
   render: function() {
     var buttonStyles = {
@@ -33,12 +33,12 @@ var ConversationSection = React.createClass({
     };
     var conversationListItems;
     if (this.state !== null) {
-      conversationListItems = _.map(this.state.conversations, getConversationItem);
+      conversationListItems = _.map(this.state.rooms, getRoomItem);
     }
     return (
       <div className='panel panel-default'>
         <div className='panel-heading'>
-          <div className='panel-title'>{'Conversations'}</div>
+          <div className='panel-title'>{'Rooms'}</div>
           <div className='pull-right' style={buttonStyles}>
             <button className='btn btn-primary' onClick={this._onClickPlus}>
               <span className="glyphicon glyphicon-plus"></span>
@@ -55,7 +55,7 @@ var ConversationSection = React.createClass({
   _onClickPlus: function(event) {
     var name = prompt('Name of the room');
     if (!_.isUndefined(name) && !_.isEmpty(name)) {
-      ChatConversationActionCreators.createConversation(name);
+      ChatRoomActionCreators.createRoom(name);
     }
   },
 
@@ -64,4 +64,4 @@ var ConversationSection = React.createClass({
   }
 });
 
-module.exports = ConversationSection;
+module.exports = RoomSection;

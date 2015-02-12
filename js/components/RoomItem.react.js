@@ -1,6 +1,6 @@
 var React  = require('react');
 
-var ConversationItem = React.createClass({
+var RoomItem = React.createClass({
   propTypes: {
     conversation: React.PropTypes.object.isRequired
   },
@@ -17,4 +17,4 @@ var ConversationItem = React.createClass({
   }
 });
 
-module.exports = ConversationItem;
+module.exports = RoomItem;

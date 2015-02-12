@@ -1,6 +1,6 @@
 var React  = require('react');
 var MessageSection = require('./MessageSection.react');
-var ConversationSection = require('./ConversationSection.react');
+var RoomSection = require('./RoomSection.react');
 
 var ChatApp = React.createClass({
   render: function() {
@@ -8,7 +8,7 @@ var ChatApp = React.createClass({
       <div className='container'>
         <div className='row'>
           <div className='col-md-4'>
-            <ConversationSection />
+            <RoomSection />
           </div>
           <div className='col-md-6'>
             <MessageSection />
