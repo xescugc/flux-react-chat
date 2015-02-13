@@ -9,5 +9,11 @@ module.exports = {
       type: ActionTypes.CREATED_ROOM,
       room: room
     });
+  },
+  fetchedRooms: function(rooms) {
+    ChatAppDispatcher.handleServerAction({
+      type: ActionTypes.FETCHED_ROOMS,
+      rooms: rooms
+    });
   }
 }

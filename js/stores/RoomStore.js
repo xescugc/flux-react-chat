@@ -11,7 +11,7 @@ var RoomStore = _.extend({}, EventEmitter.prototype, {
   getCreatedRoomData: function(name) {
     var date = Date.now();
     return {
-      _id:        'm_' + date,
+      _id:        'r_' + date,
       name:       name,
       isCreated:  false
     };
@@ -47,6 +47,10 @@ RoomStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
           return room;
         }
       });
+      RoomStore.emitChange();
+      break;
+    case ActionTypes.FETCHED_ROOMS:
+      _rooms = action.rooms;
       RoomStore.emitChange();
       break;
 

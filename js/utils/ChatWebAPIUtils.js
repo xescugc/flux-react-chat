@@ -12,9 +12,19 @@ module.exports = {
       console.log('success', response);
       ChatServerActionCreators.createdRoom(response)
     }).catch(function(response){
-      console.log('error', response);
+      alert('error', response);
     });
   },
   createMessage: function(room, message) {
+  },
+  getRooms: function() {
+    qwest.get('/api/rooms',{},{
+      responseType: 'json'
+    }).then(function(response){
+      console.log('success', response);
+      ChatServerActionCreators.fetchedRooms(response);
+    }).catch(function(response){
+      alert('error', response);
+    });
   }
 }

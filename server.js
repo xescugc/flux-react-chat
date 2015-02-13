@@ -27,7 +27,18 @@ var router = express.Router();
 
 
 router.route('/rooms')
+  .all(function(req, res, next) {
+    setTimeout(function() {
+      next();
+    }, 1000);
+  })
   .get(function(req, res, next) {
+    Room.find({}, null, function(err, rooms){
+      if (err) {
+        console.log('Error:', err);
+      }
+      res.json(rooms);
+    });
   })
   .post(function(req, res, next) {
     var room = new Room({
@@ -38,9 +49,7 @@ router.route('/rooms')
       if (err) {
         console.log('Error:', err);
       }
-      setTimeout(function() {
-        res.json(room);
-      }, 1000);
+      res.json(room);
     });
   })
 
