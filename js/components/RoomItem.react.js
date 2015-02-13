@@ -2,17 +2,18 @@ var React  = require('react');
 
 var RoomItem = React.createClass({
   propTypes: {
-    conversation: React.PropTypes.object.isRequired
+    room: React.PropTypes.object.isRequired
   },
   render: function() {
+    var defaultClass = 'list-group-item';
+    var classNames = this.props.room.isCreated ? defaultClass : defaultClass + ' ' + 'disabled';
     return (
-      <div className='media'>
-        <div className='media-body'>
-          <h4 className='media-heading'>
-          {this.props.conversation.title}
-          </h4>
-        </div>
-      </div>
+      <a href='#' className={classNames}>
+        <h4>{this.props.room.name}</h4>
+        <p>
+          Message
+        </p>
+      </a>
     )
   }
 });

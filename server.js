@@ -3,6 +3,10 @@ var gzippo = require('gzippo');
 var morgan  = require('morgan');
 var bodyParser = require('body-parser');
 var multer = require('multer'); 
+var mongoose = require('mongoose');
+var Room = require('./models/room');
+
+mongoose.connect('mongodb://localhost/flux-react-chat');
 
 
 var app = express();
@@ -26,8 +30,18 @@ router.route('/rooms')
   .get(function(req, res, next) {
   })
   .post(function(req, res, next) {
-    //console.log(req.body);
-    res.status(202).send(req.body);
+    var room = new Room({
+      name:       req.body.room.name,
+      isCreated:  true
+    });
+    room.save(function(err, room, numberAffected) {
+      if (err) {
+        console.log('Error:', err);
+      }
+      setTimeout(function() {
+        res.json(room);
+      }, 1000);
+    });
   })
 
 router.route('/rooms/:id')

@@ -10,11 +10,11 @@ var getStateFromStores = function() {
   }
 };
 
-var getRoomItem = function(conversation) {
+var getRoomItem = function(room) {
   return (
     <RoomItem
-      key={conversation.id}
-      conversation={conversation}
+      key={room._id}
+      room={room}
     />
   );
 };
@@ -31,9 +31,9 @@ var RoomSection = React.createClass({
     var buttonStyles = {
       marginTop: '-28px',
     };
-    var conversationListItems;
+    var roomListItems;
     if (this.state !== null) {
-      conversationListItems = _.map(this.state.rooms, getRoomItem);
+      roomListItems = _.map(this.state.rooms, getRoomItem);
     }
     return (
       <div className='panel panel-default'>
@@ -45,8 +45,8 @@ var RoomSection = React.createClass({
             </button>
           </div>
         </div>
-        <div className='panel-body'>
-        {conversationListItems}
+        <div className='panel-body list-group'>
+          {roomListItems}
         </div>
       </div>
     );
@@ -55,7 +55,7 @@ var RoomSection = React.createClass({
   _onClickPlus: function(event) {
     var name = prompt('Name of the room');
     if (!_.isUndefined(name) && !_.isEmpty(name)) {
-      ChatRoomActionCreators.createRoom(name);
+      ChatRoomActionCreators.creatingRoom(name);
     }
   },
 

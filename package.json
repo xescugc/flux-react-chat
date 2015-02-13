@@ -38,6 +38,7 @@
     "grunt-nodemon": "^0.4.0",
     "gzippo": "^0.2.0",
     "jshint-stylish": "https://github.com/XescuGC/jshint-stylish/tarball/c23a1f1f113f1dac4f9be66615a00d0af815f376",
+    "mongoose": "^3.8.23",
     "morgan": "^1.5.1",
     "multer": "^0.1.7",
     "qwest": "^1.5.4",

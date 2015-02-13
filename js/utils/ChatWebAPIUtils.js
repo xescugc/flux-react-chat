@@ -1,15 +1,16 @@
-var ChatRoomActionCreators = require('../actions/ChatRoomActionCreators');
-var ChatMessageActionCreators = require('../actions/ChatMessageActionCreators');
+var ChatServerActionCreators = require('../actions/ChatServerActionCreators');
 var qwest = require('qwest');
 
 
 module.exports = {
   createRoom: function(room) {
-    console.log('createRoom');
     qwest.post('/api/rooms', {
       room: room
+    },{
+      responseType: 'json'
     }).then(function(response){
       console.log('success', response);
+      ChatServerActionCreators.createdRoom(response)
     }).catch(function(response){
       console.log('error', response);
     });

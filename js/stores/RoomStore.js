@@ -8,12 +8,12 @@ var CHANGE_EVENT = 'change';
 var ActionTypes = ChatConstants.ActionTypes;
 
 var RoomStore = _.extend({}, EventEmitter.prototype, {
-  getCreatedRoomData: function(title) {
+  getCreatedRoomData: function(name) {
     var date = Date.now();
     return {
-      id:     'm_' + date,
-      date:   new Date(date),
-      title:  title
+      _id:        'm_' + date,
+      name:       name,
+      isCreated:  false
     };
   },
   getAll: function() {
@@ -34,11 +34,22 @@ RoomStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
   var action = payload.action;
 
   switch(action.type) {
-    case ActionTypes.CREATE_ROOM:
-      var conversation = RoomStore.getCreatedRoomData(action.title);
+    case ActionTypes.CREATING_ROOM:
+      var conversation = RoomStore.getCreatedRoomData(action.name);
       _rooms.push(conversation);
       RoomStore.emitChange(); 
       break;
+    case ActionTypes.CREATED_ROOM:
+      _rooms = _.map(_rooms, function(room) {
+        if (room.name === action.room.name) {
+          return action.room;
+        } else {
+          return room;
+        }
+      });
+      RoomStore.emitChange();
+      break;
+
     default:
   }
 });

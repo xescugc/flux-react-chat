@@ -4,13 +4,13 @@ var ChatWebAPIUtils = require('../utils/ChatWebAPIUtils');
 var ActionTypes = ChatConstants.ActionTypes;
 
 module.exports = {
-  createRoom: function(title) {
+  creatingRoom: function(name) {
     ChatAppDispatcher.handleViewAction({
-      type: ActionTypes.CREATE_ROOM,
-      title: title
+      type: ActionTypes.CREATING_ROOM,
+      name: name 
     });
     ChatWebAPIUtils.createRoom({
-      title: title
+      name: name 
     })
   }
 };

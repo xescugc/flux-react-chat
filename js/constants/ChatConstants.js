@@ -3,7 +3,8 @@ var keyMirror = require('keymirror');
 module.exports = {
   ActionTypes: keyMirror({
     CREATE_MESSAGE: null,
-    CREATE_ROOM: null
+    CREATING_ROOM: null,
+    CREATED_ROOM: null
   }),
 
   PayloadSources: keyMirror({
