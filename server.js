@@ -25,13 +25,13 @@ app.use(function(err, req, res, next){
 
 var router = express.Router();
 
+app.use(function(req, res, next) {
+  setTimeout(function() {
+    next();
+  }, 1000);
+});
 
 router.route('/rooms')
-  .all(function(req, res, next) {
-    setTimeout(function() {
-      next();
-    }, 1000);
-  })
   .get(function(req, res, next) {
     Room.find({}, null, function(err, rooms){
       if (err) {
@@ -55,6 +55,7 @@ router.route('/rooms')
 
 router.route('/rooms/:id')
   .get(function(req, res, next) {
+    res.json({hni: 1});
   })
   .put(function(req, res, next) {
   })

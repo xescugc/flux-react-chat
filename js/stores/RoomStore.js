@@ -8,16 +8,22 @@ var CHANGE_EVENT = 'change';
 var ActionTypes = ChatConstants.ActionTypes;
 
 var RoomStore = _.extend({}, EventEmitter.prototype, {
-  getCreatedRoomData: function(name) {
+  getCreatedRoomData: function(room) {
     var date = Date.now();
     return {
-      _id:        'r_' + date,
-      name:       name,
-      isCreated:  false
+      _id:          room._id || 'r_' + date,
+      name:         room.name,
+      isCreated:    room.isCreated || false,
+      currentRoom:  false
     };
   },
   getAll: function() {
     return _rooms;
+  },
+  getCurrentRoom: function() {
+    return _.find(_rooms, function(room) {
+      room.currentRoom;
+    });
   },
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -27,7 +33,7 @@ var RoomStore = _.extend({}, EventEmitter.prototype, {
   },
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
-  }
+  },
 });
 
 RoomStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
@@ -35,7 +41,9 @@ RoomStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
 
   switch(action.type) {
     case ActionTypes.CREATING_ROOM:
-      var conversation = RoomStore.getCreatedRoomData(action.name);
+      var conversation = RoomStore.getCreatedRoomData({
+        name: action.name
+      });
       _rooms.push(conversation);
       RoomStore.emitChange(); 
       break;
@@ -50,7 +58,7 @@ RoomStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
       RoomStore.emitChange();
       break;
     case ActionTypes.FETCHED_ROOMS:
-      _rooms = action.rooms;
+      _rooms = _.map(action.rooms, RoomStore.getCreatedRoomData);
       RoomStore.emitChange();
       break;
 
