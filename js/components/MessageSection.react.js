@@ -45,10 +45,10 @@ var MessageSection = React.createClass({
     } else {
       messagesListItems = 'No Messages';
     }
-    var roomTitle = this.state.room ? this.state.room.title : ''
+    var roomName = _.isUndefined(this.state.room) ? '' : this.state.room.name
     return (
       <div className='panel panel-default'>
-        <div className='panel-heading'> {roomTitle} </div>
+        <div className='panel-heading'> {roomName} </div>
         <div className='panel-body'>
           {messagesListItems}
           <MessageInput />

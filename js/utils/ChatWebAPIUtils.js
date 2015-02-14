@@ -24,6 +24,7 @@ module.exports = {
       console.log('success', response);
       ChatServerActionCreators.fetchedRooms(response);
     }).catch(function(response){
+      console.log('error', response);
       alert('error', response);
     });
   }

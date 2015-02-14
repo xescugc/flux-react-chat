@@ -11,10 +11,10 @@ var RoomStore = _.extend({}, EventEmitter.prototype, {
   getCreatedRoomData: function(room) {
     var date = Date.now();
     return {
-      _id:          room._id || 'r_' + date,
-      name:         room.name,
-      isCreated:    room.isCreated || false,
-      currentRoom:  false
+      _id:            room._id || 'r_' + date,
+      name:           room.name,
+      isCreated:      room.isCreated || false,
+      isCurrent:      false
     };
   },
   getAll: function() {
@@ -22,7 +22,7 @@ var RoomStore = _.extend({}, EventEmitter.prototype, {
   },
   getCurrentRoom: function() {
     return _.find(_rooms, function(room) {
-      room.currentRoom;
+      return room.isCurrent;
     });
   },
   emitChange: function() {
@@ -61,6 +61,16 @@ RoomStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
       _rooms = _.map(action.rooms, RoomStore.getCreatedRoomData);
       RoomStore.emitChange();
       break;
+    case ActionTypes.CLICKING_ROOM:
+      _rooms = _.map(_rooms, function(room) {
+        if (room._id === action.room._id) {
+          room.isCurrent = true;
+        } else {
+          room.isCurrent = false;
+        };
+        return room;
+      });
+      RoomStore.emitChange();
 
     default:
   }

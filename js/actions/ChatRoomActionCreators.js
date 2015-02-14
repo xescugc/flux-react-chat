@@ -12,5 +12,11 @@ module.exports = {
     ChatWebAPIUtils.createRoom({
       name: name 
     })
+  },
+  clickRoom: function(room) {
+    ChatAppDispatcher.handleViewAction({
+      type: ActionTypes.CLICKING_ROOM,
+      room: room
+    })
   }
 };

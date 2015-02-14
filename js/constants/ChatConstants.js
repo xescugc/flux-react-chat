@@ -5,7 +5,8 @@ module.exports = {
     CREATE_MESSAGE: null,
     CREATING_ROOM: null,
     CREATED_ROOM: null,
-    FETCHED_ROOMS: null
+    FETCHED_ROOMS: null,
+    CLICKING_ROOM: null
   }),
 
   PayloadSources: keyMirror({
