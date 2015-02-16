@@ -15,5 +15,11 @@ module.exports = {
       type: ActionTypes.FETCHED_ROOMS,
       rooms: rooms
     });
+  },
+  createdMessage: function(message) {
+    ChatAppDispatcher.handleServerAction({
+      type: ActionTypes.CREATED_MESSAGE,
+      message: message
+    })
   }
 }

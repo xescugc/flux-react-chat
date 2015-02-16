@@ -39,18 +39,18 @@ var MessageSection = React.createClass({
   },
 
   render: function() {
-    var messagesListItems;
-    if (this.state !== null) {
-      messagesListItems = _.map(this.state.messages, getMessageItem);
-    } else {
-      messagesListItems = 'No Messages';
+    var roomName, messagesListItems;
+    if (!_.isUndefined(this.state.room)) {
+      messagesListItems = _.isEmpty(this.state.messages) ? 'No Messages' : _.map(this.state.messages, getMessageItem);
+      roomName = this.state.room.name;
     }
-    var roomName = _.isUndefined(this.state.room) ? '' : this.state.room.name
     return (
       <div className='panel panel-default'>
         <div className='panel-heading'> {roomName} </div>
         <div className='panel-body'>
           {messagesListItems}
+        </div>
+        <div className='panel-footer'>
           <MessageInput />
         </div>
       </div>

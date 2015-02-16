@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer'); 
 var mongoose = require('mongoose');
 var Room = require('./models/room');
+var Message = require('./models/message');
 
 mongoose.connect('mongodb://localhost/flux-react-chat');
 
@@ -26,6 +27,7 @@ app.use(function(err, req, res, next){
 var router = express.Router();
 
 app.use(function(req, res, next) {
+  //next();
   setTimeout(function() {
     next();
   }, 1000);
@@ -55,19 +57,44 @@ router.route('/rooms')
 
 router.route('/rooms/:id')
   .get(function(req, res, next) {
-    res.json({hni: 1});
+  })
+  .post(function(req, res, next) {
   })
   .put(function(req, res, next) {
   })
-  .delete(function(req, req, next) {
+  .delete(function(req, res, next) {
   })
 
 router.route('/rooms/:room_id/messages')
   .get(function(req, res, next) {
   })
-  .post(function(req, req, next) {
+  .post(function(req, res, next) {
+    var pMessage = req.body.message;
+    var message = new Message({
+      text:       pMessage.text,
+      roomId:     pMessage.roomId,
+      date:       pMessage.date,
+      isCreated:  true
+    });
+    message.save(function(err, message, numberAffected) {
+      if (err) {
+        console.log('Error:', err);
+      };
+      message = message.toObject();
+      message.oldId = pMessage._id;
+      res.json(message);
+    });
   })
 
+router.route('/messages')
+  .get(function(req, res, next) {
+    Message.find({}, null, function(err, messages) {
+      if (err) {
+        console.log('Error:', err);
+      }
+      res.json(messages);
+    });
+  });
 app.use('/api', router);
 
 app.get('/_routes', function(req, res, next) {

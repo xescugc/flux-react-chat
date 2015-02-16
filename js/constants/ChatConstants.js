@@ -2,7 +2,8 @@ var keyMirror = require('keymirror');
 
 module.exports = {
   ActionTypes: keyMirror({
-    CREATE_MESSAGE: null,
+    CREATING_MESSAGE: null,
+    CREATED_MESSAGE: null,
     CREATING_ROOM: null,
     CREATED_ROOM: null,
     FETCHED_ROOMS: null,

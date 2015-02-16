@@ -16,15 +16,13 @@ var MessageInput = React.createClass({
   render: function() {
     var d = this.state.canSend ? false : true;
     return (
-      <div className='form-group'>
-        <div className='input-group'>
-          <input type='text' className='form-control' value={this.state.text} onChange={this._onChange} onKeyDown={this._onKeyDownSendInput}/> 
-          <span className='input-group-btn'>
-            <button onClick={this._onClickSend} className='btn btn-primary' disabled={d}>
-              <span className="glyphicon glyphicon-send"></span>
-            </button>
-          </span>
-        </div>
+      <div className='input-group'>
+        <input type='text' className='form-control' value={this.state.text} onChange={this._onChange} onKeyDown={this._onKeyDownSendInput}/> 
+        <span className='input-group-btn'>
+          <button onClick={this._onClickSend} className='btn btn-primary' disabled={d}>
+            <span className="glyphicon glyphicon-send"></span>
+          </button>
+        </span>
       </div> 
     );
   },
@@ -39,7 +37,7 @@ var MessageInput = React.createClass({
 
   _onClickSend: function(event) {
     if (!s.isBlank(this.state.text)){
-      ChatMessageActionCreators.createMessage(this.state.text); 
+      ChatMessageActionCreators.creatingMessage(this.state.text); 
       this.setState({
         text: ''
       });
