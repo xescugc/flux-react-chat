@@ -65,6 +65,10 @@ MessageStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
       });
       MessageStore.emitChange();
       break;
+    case ActionTypes.FETCHED_MESSAGES:
+      _messages = action.messages;
+      MessageStore.emitChange();
+      break;
     default:
   }
 });

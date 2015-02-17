@@ -21,5 +21,11 @@ module.exports = {
       type: ActionTypes.CREATED_MESSAGE,
       message: message
     })
+  },
+  fetchedMessages: function(messages) {
+    ChatAppDispatcher.handleServerAction({
+      type: ActionTypes.FETCHED_MESSAGES,
+      messages: messages
+    })
   }
 }

@@ -21,10 +21,10 @@ module.exports = {
       message: message
     },{
       responseType: 'json'
-    }).done(function(response) {
+    }).then(function(response) {
       console.log(response);
       ChatServerActionCreators.createdMessage(response);
-    }).fail(function(response) {
+    }).catch(function(response) {
       console.log('error', response);
       alert('error', response);
     });
@@ -36,6 +36,16 @@ module.exports = {
       console.log('success', response);
       ChatServerActionCreators.fetchedRooms(response);
     }).catch(function(response){
+      console.log('error', response);
+      alert('error', response);
+    });
+  },
+  getMessages: function() {
+    qwest.get('/api/messages', {}, {
+      responseType: 'json'
+    }).then(function(response) {
+      ChatServerActionCreators.fetchedMessages(response);
+    }).catch(function(response) {
       console.log('error', response);
       alert('error', response);
     });
