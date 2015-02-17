@@ -1,16 +1,16 @@
-var express = require('express');
-var gzippo = require('gzippo');
-var morgan  = require('morgan');
+var express    = require('express');
+var app        = express();
+var http       = require('http').Server(app);
+var gzippo     = require('gzippo');
+var morgan     = require('morgan');
 var bodyParser = require('body-parser');
-var multer = require('multer'); 
-var mongoose = require('mongoose');
-var Room = require('./models/room');
-var Message = require('./models/message');
+var multer     = require('multer');
+var mongoose   = require('mongoose');
+var Room       = require('./models/room');
+var Message    = require('./models/message');
+var io         = require('socket.io')(http);
 
 mongoose.connect('mongodb://localhost/flux-react-chat');
-
-
-var app = express();
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -51,6 +51,7 @@ router.route('/rooms')
       if (err) {
         console.log('Error:', err);
       }
+      io.emit('createdRoom', room);
       res.json(room);
     });
   })
@@ -82,6 +83,7 @@ router.route('/rooms/:room_id/messages')
       };
       message = message.toObject();
       message.oldId = pMessage._id;
+      io.emit('createdMessage', message);
       res.json(message);
     });
   })
@@ -101,7 +103,10 @@ app.get('/_routes', function(req, res, next) {
   res.send(router.stack);
 });
 
-var server = app.listen((process.env.PORT || 5000), function () {
+//io.on('connection', function(socket) {
+//});
+
+var server = http.listen((process.env.PORT || 5000), function () {
 
   var host = server.address().address
   var port = server.address().port

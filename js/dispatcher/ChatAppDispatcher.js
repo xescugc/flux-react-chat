@@ -18,6 +18,13 @@ var ChatAppDispatcher = _.extend(new Dispatcher(), {
       action: action
     };
     this.dispatch(payload);
+  },
+  handleSocketAction: function(action) {
+    var payload = {
+      source: PayloadSources.SOCKET_ACTION,
+      action: action
+    };
+    this.dispatch(payload);
   }
 });
 

@@ -8,11 +8,14 @@ module.exports = {
     CREATED_ROOM: null,
     FETCHED_ROOMS: null,
     CLICKING_ROOM: null,
-    FETCHED_MESSAGES: null
+    FETCHED_MESSAGES: null,
+    NEW_MESSAGE: null,
+    NEW_ROOM: null
   }),
 
   PayloadSources: keyMirror({
     VIEW_ACTION: null,
-    SERVER_ACTION: null
+    SERVER_ACTION: null,
+    SOCKET_ACTION: null
   })
 };
