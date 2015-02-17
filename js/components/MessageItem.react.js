@@ -1,4 +1,5 @@
 var React  = require('react');
+var md5 = require('blueimp-md5').md5;
 
 var MessageItem = React.createClass({
   propTypes: {
@@ -8,6 +9,8 @@ var MessageItem = React.createClass({
   render: function() {
     var icon = this.props.message.isCreated ? 'ok' : 'time';
     var date = new Date(this.props.message.date).toLocaleFormat();
+    var md5Hash = md5('xescugil@gmail.com');
+    console.log(md5Hash);
     return (
       <div className='media'>
         <div className='media-body text-right'>
@@ -22,7 +25,7 @@ var MessageItem = React.createClass({
           </p>
         </div>
         <div className='media-right'>
-          <img src='http://placehold.it/64x64'/>
+          <img src={'http://gravatar.com/avatar/' + md5Hash + 's=64'}/>
         </div>
       </div>
     );

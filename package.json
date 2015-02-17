@@ -24,6 +24,7 @@
     "underscore": "^1.7.0"
   },
   "devDependencies": {
+    "blueimp-md5": "^1.1.0",
     "body-parser": "^1.11.0",
     "bootstrap": "^3.3.2",
     "browserify": "^8.1.3",
