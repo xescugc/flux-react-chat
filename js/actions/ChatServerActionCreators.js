@@ -27,5 +27,11 @@ module.exports = {
       type: ActionTypes.FETCHED_MESSAGES,
       messages: messages
     })
+  },
+  createdUser: function(user) {
+    ChatAppDispatcher.handleServerAction({
+      type: ActionTypes.CREATED_USER,
+      user: user
+    })
   }
 }

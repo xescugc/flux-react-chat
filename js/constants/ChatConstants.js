@@ -10,7 +10,8 @@ module.exports = {
     CLICKING_ROOM: null,
     FETCHED_MESSAGES: null,
     NEW_MESSAGE: null,
-    NEW_ROOM: null
+    NEW_ROOM: null,
+    CREATED_USER: null
   }),
 
   PayloadSources: keyMirror({

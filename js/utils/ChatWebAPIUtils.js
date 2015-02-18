@@ -49,5 +49,29 @@ module.exports = {
       console.log('error', response);
       alert('error', response);
     });
+  },
+  getUser: function() {
+    qwest.get('/api/user', {}, {
+      responseType: 'json'
+    }).then(function(response) {
+      ChatServerActionCreators.createdUser(response);
+    }).catch(function(response) {
+      console.log('error', response);
+      alert('error', response);
+    });
+  },
+  createUser: function(email) {
+    qwest.post('/api/user', {
+      user: {
+        email: email
+      }
+    }, {
+      responseType: 'json'
+    }).then(function(response) {
+      ChatServerActionCreators.createdUser(response);
+    }).catch(function(response) {
+      console.log('error', response);
+      alert('error', response);
+    });
   }
 }

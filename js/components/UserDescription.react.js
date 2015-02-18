@@ -1,15 +1,15 @@
 var React  = require('react');
 
 var UserDescription = React.createClass({
+  propTypes: {
+    user: React.PropTypes.object.isRequired
+  },
   render: function() {
-    var imageSrc = 'http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710cd50?s=64'
     return (
       <div>
-        <img src={imageSrc} />
+        <img src={this.props.user.img} />
         <h3>Name</h3>
-        <p>
-        Name
-        </p>
+        {this.props.user.name}
       </div>
     )
   }

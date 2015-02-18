@@ -1,6 +1,7 @@
 var React  = require('react');
 var MessageStore = require('../stores/MessageStore');
 var RoomStore = require('../stores/RoomStore');
+var UserStore = require('../stores/UserStore');
 var MessageInput = require('./MessageInput.react');
 var MessageItem = require('./MessageItem.react');
 var _ = require('underscore');
@@ -9,7 +10,8 @@ var _ = require('underscore');
 var getStateFromStores = function() {
   return {
     messages: MessageStore.getAllForCurrentRoom(),
-    room:     RoomStore.getCurrentRoom()
+    room:     RoomStore.getCurrentRoom(),
+    user:     UserStore.getCurrentUser()
   };
 };
 
@@ -18,6 +20,7 @@ var getMessageItem = function(message) {
     <MessageItem
       key={message._id}
       message={message}
+      currentUser={this.state.user}
     />
   );
 };
@@ -32,11 +35,13 @@ var MessageSection = React.createClass({
     this._scrollChatToBottom();
     MessageStore.addChangeListener(this._onChange);
     RoomStore.addChangeListener(this._onChange);
+    UserStore.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function() {
     MessageStore.removeChangeListener(this._onChange);
     RoomStore.removeChangeListener(this._onChange);
+    UserStore.removeChangeListener(this._onChange);
   },
 
   componentDidUpdate: function() {
@@ -46,16 +51,19 @@ var MessageSection = React.createClass({
   render: function() {
     var roomName, messagesListItems;
     if (!_.isUndefined(this.state.room)) {
-      messagesListItems = _.isEmpty(this.state.messages) ? 'No Messages' : _.map(this.state.messages, getMessageItem);
+      messagesListItems = _.isEmpty(this.state.messages) ? 'No Messages' : _.map(this.state.messages, getMessageItem, this);
       roomName = this.state.room.name;
     };
     var panelBodyStyle = {
       overflow: 'auto',
       maxHeight: '500px'
     };
+          //<strong>Room name:</strong> {roomName}
     return (
       <div className='panel panel-default'>
-        <div className='panel-heading'> {roomName} </div>
+        <div className='panel-heading text-center'>
+          {roomName}
+        </div>
         <div className='panel-body' style={panelBodyStyle} ref='panelBody'>
           {messagesListItems}
         </div>
