@@ -1,5 +1,5 @@
-var _ = require('underscore');
-var Dispatcher = require('flux').Dispatcher;
+var _             = require('underscore');
+var Dispatcher    = require('flux').Dispatcher;
 var ChatConstants = require('../constants/ChatConstants');
 
 var PayloadSources = ChatConstants.PayloadSources;

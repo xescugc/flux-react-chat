@@ -1,7 +1,7 @@
-var ChatConstants = require('../constants/ChatConstants');
+var ChatConstants     = require('../constants/ChatConstants');
 var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var _ = require('underscore');
+var EventEmitter      = require('events').EventEmitter;
+var _                 = require('underscore');
 
 var _rooms = [];
 var CHANGE_EVENT = 'change';
@@ -75,23 +75,23 @@ RoomStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
           room.isCurrent = true;
         } else {
           room.isCurrent = false;
-        };
+        }
         return room;
       });
       RoomStore.emitChange();
       break;
     case ActionTypes.UPDATED_ROOM:
-      console.log('updated event');
       _rooms = _.map(_rooms, function(room) {
         if (room._id === action.room._id) {
           action.room.isCurrent = room.isCurrent;
-          return action.room
+          return action.room;
         } else {
-          return room
+          return room;
         }
       });
       sortRooms();
       RoomStore.emitChange();
+      break;
 
     default:
   }

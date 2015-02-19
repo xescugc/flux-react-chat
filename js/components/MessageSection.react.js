@@ -1,10 +1,10 @@
-var React  = require('react');
+var React        = require('react');
 var MessageStore = require('../stores/MessageStore');
-var RoomStore = require('../stores/RoomStore');
-var UserStore = require('../stores/UserStore');
+var RoomStore    = require('../stores/RoomStore');
+var UserStore    = require('../stores/UserStore');
 var MessageInput = require('./MessageInput.react');
-var MessageItem = require('./MessageItem.react');
-var _ = require('underscore');
+var MessageItem  = require('./MessageItem.react');
+var _            = require('underscore');
 
 
 var getStateFromStores = function() {
@@ -28,7 +28,7 @@ var getMessageItem = function(message) {
 var MessageSection = React.createClass({
 
   getInitialState: function() {
-    return getStateFromStores()
+    return getStateFromStores();
   },
 
   componentDidMount: function() {
@@ -53,12 +53,11 @@ var MessageSection = React.createClass({
     if (!_.isUndefined(this.state.room)) {
       messagesListItems = _.isEmpty(this.state.messages) ? 'No Messages' : _.map(this.state.messages, getMessageItem, this);
       roomName = this.state.room.name;
-    };
+    }
     var panelBodyStyle = {
       overflow: 'auto',
       maxHeight: '500px'
     };
-          //<strong>Room name:</strong> {roomName}
     return (
       <div className='panel panel-default'>
         <div className='panel-heading text-center'>

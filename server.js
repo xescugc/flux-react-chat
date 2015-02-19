@@ -13,9 +13,9 @@ var md5        = require('blueimp-md5').md5;
 
 mongoose.connect('mongodb://localhost/flux-react-chat');
 
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(multer()); // for parsing multipart/form-data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(multer());
 
 app.use(morgan('tiny'));
 app.use(gzippo.staticGzip('' + __dirname));
@@ -28,7 +28,7 @@ var createUser = function(user) {
   var userName, userEmail, userImage;
   var date = Date.now();
   if (user.name) {
-    userName = user.name
+    userName = user.name;
   } else if (user.email){
     userName = user.email.split('@')[0];
   } else {
@@ -37,13 +37,13 @@ var createUser = function(user) {
   userEmail = user.email || userName.toLowerCase() + '@example.com';
   userImage = user.img   || 'http://www.gravatar.com/avatar/' + md5(userEmail) + '?s=64';
 
-  var user = {
+  var finalUser = {
     _id:    user._id   || 'u_' + date,
     name:   userName,
     email:  userEmail,
     img:    userImage
-  }
-  return user
+  };
+  return finalUser;
 };
 
 var emitToClients = function(action) {
@@ -84,7 +84,7 @@ router.route('/rooms')
       });
       res.json(room);
     });
-  })
+  });
 
 router.route('/rooms/:id')
   .get(function(req, res, next) {
@@ -94,7 +94,7 @@ router.route('/rooms/:id')
   .put(function(req, res, next) {
   })
   .delete(function(req, res, next) {
-  })
+  });
 
 router.route('/rooms/:room_id/messages')
   .get(function(req, res, next) {
@@ -111,26 +111,25 @@ router.route('/rooms/:room_id/messages')
       },
       isCreated:  true
     });
-    message.save(messageCreatedCallback);
     function messageCreatedCallback (err, message, numberAffected){
       if (err) {
         console.log('Error:', err);
-      };
-      updateRoomLastMessage(message)
-    };
+      }
+      updateRoomLastMessage(message);
+    }
     function updateRoomLastMessage(message){
       Room.update({_id: message.roomId}, {$set: {updatedAt: Date.now(), lastMessage: { author: message.author.name, text: message.text}}}, function(err, numberAffected, raw){
         if (err) {
           console.log('Error:', err);
-        };
+        }
         Room.findOne({_id: message.roomId}, function(err, room){
           if (err) {
             console.log('Error:', err);
-          };
+          }
           returnResult(message, room);
         });
       });
-    };
+    }
     function returnResult(message, room) {
         message = message.toObject();
         message.oldId = pMessage._id;
@@ -143,8 +142,9 @@ router.route('/rooms/:room_id/messages')
           body: room 
         });
         res.json(message);
-    };
-  })
+    }
+    message.save(messageCreatedCallback);
+  });
 
   router.route('/messages')
   .get(function(req, res, next) {
@@ -157,7 +157,7 @@ router.route('/rooms/:room_id/messages')
   });
 router.route('/user')
   .get(function(req, res, next) {
-    var user = createUser({})
+    var user = createUser({});
     res.json(user);
   })
   .post(function(req, res, next) {
@@ -175,9 +175,9 @@ app.get('/_routes', function(req, res, next) {
 
 var server = http.listen((process.env.PORT || 5000), function () {
 
-  var host = server.address().address
-  var port = server.address().port
+  var host = server.address().addressr;
+  var port = server.address().port;
 
-  console.log('Express app listening at http://%s:%s', host, port)
+  console.log('Express app listening at http://%s:%s', host, port);
 
-})
+});

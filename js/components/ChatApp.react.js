@@ -1,7 +1,7 @@
-var React  = require('react');
+var React          = require('react');
 var MessageSection = require('./MessageSection.react');
-var RoomSection = require('./RoomSection.react');
-var UserSection = require('./UserSection.react');
+var RoomSection    = require('./RoomSection.react');
+var UserSection    = require('./UserSection.react');
 
 var ChatApp = React.createClass({
   render: function() {

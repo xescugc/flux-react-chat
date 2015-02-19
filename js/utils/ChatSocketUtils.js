@@ -2,7 +2,7 @@ var ChatSocketActionCreators = require('../actions/ChatSocketActionCreators');
 var socket = io();
 
 socket.on('createdMessage', function(message) {
-  ChatSocketActionCreators.newMessage(message)
+  ChatSocketActionCreators.newMessage(message);
 });
 socket.on('createdRoom', function(room) {
   ChatSocketActionCreators.newRoom(room);

@@ -1,5 +1,5 @@
-var React  = require('react');
-var UserStore = require('../stores/UserStore');
+var React           = require('react');
+var UserStore       = require('../stores/UserStore');
 var UserDescription = require('./UserDescription.react');
 
 var userDescription = function(user) {
@@ -7,14 +7,14 @@ var userDescription = function(user) {
     <UserDescription
       user={user}
     />
-  )
+  );
 };
 
 var getStateFromStores = function() {
   return {
     user: UserStore.getCurrentUser()
-  }
-}
+  };
+};
 
 var UserSection = React.createClass({
   getInitialState: function() {
@@ -39,12 +39,12 @@ var UserSection = React.createClass({
           {userDescription(this.state.user)}
         </div>
       </div>
-    )
+    );
   },
 
   _onChange: function() {
     this.setState(getStateFromStores());
   }
-})
+});
 
 module.exports = UserSection;

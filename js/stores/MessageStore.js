@@ -1,9 +1,9 @@
 var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
-var ChatConstants = require('../constants/ChatConstants');
-var EventEmitter = require('events').EventEmitter;
-var RoomStore = require('./RoomStore');
-var UserStore = require('./UserStore');
-var _ = require('underscore');
+var ChatConstants     = require('../constants/ChatConstants');
+var EventEmitter      = require('events').EventEmitter;
+var RoomStore         = require('./RoomStore');
+var UserStore         = require('./UserStore');
+var _                 = require('underscore');
 
 var _messages = [];
 var CHANGE_EVENT = 'change';
@@ -18,7 +18,7 @@ var sortMessages = function() {
 var MessageStore = _.extend({}, EventEmitter.prototype, {
   getCreatedMessageData: function(message) {
     var date = Date.now();
-    var user = UserStore.getCurrentUser()
+    var user = UserStore.getCurrentUser();
     return {
       _id:        message._id    || 'm_' + date,
       date:       message.date   || new Date(date).toJSON(),
@@ -29,7 +29,6 @@ var MessageStore = _.extend({}, EventEmitter.prototype, {
         name: user.name,
         img: user.img
       }
-      //isRead:     message.isRead || false
     };
   },
   getAll: function() {
@@ -42,7 +41,7 @@ var MessageStore = _.extend({}, EventEmitter.prototype, {
         return message.roomId === room._id;
       });
     } else {
-      return []
+      return [];
     }
   },
   emitChange: function() {
@@ -66,18 +65,16 @@ MessageStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
 
   switch(action.type) {
     case ActionTypes.CREATING_MESSAGE:
-      //var message = MessageStore.getCreatedMessageData({
-        //text: action.text
-      //});
       _messages.push(action.message);
+      sortMessages();
       MessageStore.emitChange();
       break;
     case ActionTypes.CREATED_MESSAGE:
       _messages = _.map(_messages, function(message) {
-        if (action.message.oldId == message._id) {
-          return action.message
+        if (action.message.oldId === message._id) {
+          return action.message;
         } else {
-          return message
+          return message;
         }
       });
       sortMessages();

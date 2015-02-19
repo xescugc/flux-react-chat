@@ -1,8 +1,7 @@
-var ChatConstants = require('../constants/ChatConstants');
-var md5 = require('blueimp-md5').md5;
+var ChatConstants     = require('../constants/ChatConstants');
 var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var _ = require('underscore');
+var EventEmitter      = require('events').EventEmitter;
+var _                 = require('underscore');
 
 var _user= {};
 var CHANGE_EVENT = 'change';
@@ -21,18 +20,18 @@ var UserStore = _.extend({}, EventEmitter.prototype, {
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   }
-})
+});
 
 UserStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
   var action = payload.action;
 
   switch(action.type) {
     case ActionTypes.CREATED_USER:
-      _user = action.user
+      _user = action.user;
       UserStore.emitChange();
       break;
     default:
-  };
+  }
 });
 
 module.exports = UserStore;

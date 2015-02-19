@@ -1,5 +1,5 @@
 var ChatServerActionCreators = require('../actions/ChatServerActionCreators');
-var qwest = require('qwest');
+var qwest                    = require('qwest');
 
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
     },{
       responseType: 'json'
     }).then(function(response){
-      ChatServerActionCreators.createdRoom(response)
+      ChatServerActionCreators.createdRoom(response);
     }).catch(function(response){
       console.log('error', response);
       alert('error', response);
@@ -71,4 +71,4 @@ module.exports = {
       alert('error', response);
     });
   }
-}
+};

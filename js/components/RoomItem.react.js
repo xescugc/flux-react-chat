@@ -1,7 +1,7 @@
-var React  = require('react');
-var _ = require('underscore');
+var React                  = require('react');
+var _                      = require('underscore');
 var ChatRoomActionCreators = require('../actions/ChatRoomActionCreators');
-var s = require('underscore.string');
+var s                      = require('underscore.string');
 
 var createLastMessage = function(room) {
   if (!_.isUndefined(room.lastMessage)){ 
@@ -9,7 +9,7 @@ var createLastMessage = function(room) {
       <p>
         {room.lastMessage.author}: {room.lastMessage.text}
       </p>
-    )
+    );
   }
 };
 
@@ -28,7 +28,7 @@ var RoomItem = React.createClass({
         <h4>{this.props.room.name}</h4>
         {lastMessage}
       </a>
-    )
+    );
   },
   _onClick: function(event) {
     ChatRoomActionCreators.clickRoom(this.props.room);

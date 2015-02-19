@@ -1,5 +1,4 @@
-var React  = require('react');
-var md5 = require('blueimp-md5').md5;
+var React = require('react');
 
 var MessageItem = React.createClass({
   propTypes: {
@@ -15,14 +14,14 @@ var MessageItem = React.createClass({
       mediaRight =
         <div className='media-right'>
           <img src={this.props.message.author.img}/>
-        </div>
+        </div>;
       textAlign = 'text-right';
       iconPosition = 'pull-left';
     } else {
       mediaLeft = 
         <div className='media-left'>
           <img src={this.props.message.author.img}/>
-        </div>
+        </div>;
       textAlign = 'text-left';
       iconPosition = 'pull-right';
     }

@@ -1,13 +1,13 @@
-var React  = require('react');
-var _ = require('underscore');
-var RoomStore = require('../stores/RoomStore');
+var React                  = require('react');
+var _                      = require('underscore');
+var RoomStore              = require('../stores/RoomStore');
 var ChatRoomActionCreators = require('../actions/ChatRoomActionCreators');
-var RoomItem = require('./RoomItem.react');
+var RoomItem               = require('./RoomItem.react');
 
 var getStateFromStores = function() {
   return {
     rooms: RoomStore.getAll()
-  }
+  };
 };
 
 var getRoomItem = function(room) {

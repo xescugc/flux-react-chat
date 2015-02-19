@@ -1,5 +1,5 @@
 var ChatAppDispatcher = require('../dispatcher/ChatAppDispatcher');
-var ChatConstants = require('../constants/ChatConstants');
+var ChatConstants     = require('../constants/ChatConstants');
 
 var ActionTypes = ChatConstants.ActionTypes;
 
@@ -20,18 +20,18 @@ module.exports = {
     ChatAppDispatcher.handleServerAction({
       type: ActionTypes.CREATED_MESSAGE,
       message: message
-    })
+    });
   },
   fetchedMessages: function(messages) {
     ChatAppDispatcher.handleServerAction({
       type: ActionTypes.FETCHED_MESSAGES,
       messages: messages
-    })
+    });
   },
   createdUser: function(user) {
     ChatAppDispatcher.handleServerAction({
       type: ActionTypes.CREATED_USER,
       user: user
-    })
+    });
   }
-}
+};

@@ -11,8 +11,8 @@ var UserDescription = React.createClass({
         <h3>Name</h3>
         {this.props.user.name}
       </div>
-    )
+    );
   }
-})
+});
 
 module.exports = UserDescription;

@@ -1,8 +1,8 @@
-var React = require('react');
-var ChatApp = require('./components/ChatApp.react');
-var ChatWebAPIUtils = require('./utils/ChatWebAPIUtils');
+var React            = require('react');
+var ChatApp          = require('./components/ChatApp.react');
+var ChatWebAPIUtils  = require('./utils/ChatWebAPIUtils');
 var ChatSocketIUtils = require('./utils/ChatSocketUtils');
-var _ = require('underscore');
+var _                = require('underscore');
 
 ChatWebAPIUtils.getRooms();
 ChatWebAPIUtils.getMessages();

@@ -1,6 +1,6 @@
-var React  = require('react');
+var React                     = require('react');
 var ChatMessageActionCreators = require('../actions/ChatMessageActionCreators');
-var s = require('underscore.string');
+var s                         = require('underscore.string');
 
 var ENTER_KEY_CODE = 13;
 
