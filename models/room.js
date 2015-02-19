@@ -3,7 +3,12 @@ var Schema       = mongoose.Schema;
 
 var RoomSchema   = new Schema({
   name:       String,
-  isCreated:  Boolean
+  isCreated:  Boolean,
+  updatedAt:  Date,
+  lastMessage: {
+    author:   String,
+    text:     String
+  }
 });
 
 module.exports = mongoose.model('Room', RoomSchema);

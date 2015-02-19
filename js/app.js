@@ -11,7 +11,7 @@ React.render(
   <ChatApp />, 
   document.getElementById('react')
 );
-var email = prompt('Enter you email');
+var email;// = prompt('Enter you email');
 if (!_.isUndefined(email) && !_.isEmpty(email)) {
   ChatWebAPIUtils.createUser(email);
 } else {

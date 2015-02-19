@@ -9,7 +9,6 @@ module.exports = {
     var message = MessageStore.getCreatedMessageData({
       text: text
     })
-    console.log(message);
     ChatAppDispatcher.handleViewAction({
       type: ActionTypes.CREATING_MESSAGE,
       message: message

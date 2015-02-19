@@ -11,7 +11,8 @@ module.exports = {
     FETCHED_MESSAGES: null,
     NEW_MESSAGE: null,
     NEW_ROOM: null,
-    CREATED_USER: null
+    CREATED_USER: null,
+    UPDATED_ROOM: null
   }),
 
   PayloadSources: keyMirror({

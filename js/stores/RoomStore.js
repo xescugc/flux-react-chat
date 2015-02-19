@@ -7,6 +7,12 @@ var _rooms = [];
 var CHANGE_EVENT = 'change';
 var ActionTypes = ChatConstants.ActionTypes;
 
+var sortRooms = function() {
+  _rooms = _.sortBy(_rooms, function(room) {
+    return room.updatedAt;
+  }).reverse();
+};
+
 var RoomStore = _.extend({}, EventEmitter.prototype, {
   getCreatedRoomData: function(room) {
     var date = Date.now();
@@ -14,7 +20,9 @@ var RoomStore = _.extend({}, EventEmitter.prototype, {
       _id:            room._id || 'r_' + date,
       name:           room.name,
       isCreated:      room.isCreated || false,
-      isCurrent:      false
+      isCurrent:      false,
+      lastMessage:    room.lastMessage,
+      updatedAt:      room.updatedAt
     };
   },
   getAll: function() {
@@ -70,6 +78,19 @@ RoomStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
         };
         return room;
       });
+      RoomStore.emitChange();
+      break;
+    case ActionTypes.UPDATED_ROOM:
+      console.log('updated event');
+      _rooms = _.map(_rooms, function(room) {
+        if (room._id === action.room._id) {
+          action.room.isCurrent = room.isCurrent;
+          return action.room
+        } else {
+          return room
+        }
+      });
+      sortRooms();
       RoomStore.emitChange();
 
     default:

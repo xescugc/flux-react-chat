@@ -9,6 +9,12 @@ var _messages = [];
 var CHANGE_EVENT = 'change';
 var ActionTypes = ChatConstants.ActionTypes;
 
+var sortMessages = function() {
+  _messages = _.sortBy(_messages, function(message) {
+    return message.date;
+  });
+};
+
 var MessageStore = _.extend({}, EventEmitter.prototype, {
   getCreatedMessageData: function(message) {
     var date = Date.now();
@@ -47,11 +53,6 @@ var MessageStore = _.extend({}, EventEmitter.prototype, {
       return message._id === id;
     });
   },
-  sortMessages: function() {
-    _messages = _.sortBy(_messages, function(message) {
-      return message.date;
-    });
-  },
   addChangeListener: function(callback) {
     this.on(CHANGE_EVENT, callback);
   },
@@ -79,7 +80,7 @@ MessageStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
           return message
         }
       });
-      MessageStore.sortMessages();
+      sortMessages();
       MessageStore.emitChange();
       break;
     case ActionTypes.FETCHED_MESSAGES:
@@ -92,7 +93,7 @@ MessageStore.dispatchToken = ChatAppDispatcher.register(function(payload) {
       if (_.isUndefined(newId) && _.isUndefined(oldId)){
         _messages.push(action.message);
       }
-      MessageStore.sortMessages();
+      sortMessages();
       MessageStore.emitChange();
       break;
     default:

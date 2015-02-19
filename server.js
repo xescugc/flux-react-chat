@@ -47,7 +47,7 @@ var createUser = function(user) {
 };
 
 var emitToClients = function(action) {
-  io.emit(action.name, action.body);
+  io.emit(action.type, action.body);
 };
 
 
@@ -71,6 +71,7 @@ router.route('/rooms')
   .post(function(req, res, next) {
     var room = new Room({
       name:       req.body.room.name,
+      createdAt:  Date.now(),
       isCreated:  true
     });
     room.save(function(err, room, numberAffected) {
@@ -110,21 +111,42 @@ router.route('/rooms/:room_id/messages')
       },
       isCreated:  true
     });
-    message.save(function(err, message, numberAffected) {
+    message.save(messageCreatedCallback);
+    function messageCreatedCallback (err, message, numberAffected){
       if (err) {
         console.log('Error:', err);
       };
-      message = message.toObject();
-      message.oldId = pMessage._id;
-      emitToClients({
-        name: 'createdMessage',
-        body: message 
+      updateRoomLastMessage(message)
+    };
+    function updateRoomLastMessage(message){
+      Room.update({_id: message.roomId}, {$set: {updatedAt: Date.now(), lastMessage: { author: message.author.name, text: message.text}}}, function(err, numberAffected, raw){
+        if (err) {
+          console.log('Error:', err);
+        };
+        Room.findOne({_id: message.roomId}, function(err, room){
+          if (err) {
+            console.log('Error:', err);
+          };
+          returnResult(message, room);
+        });
       });
-      res.json(message);
-    });
+    };
+    function returnResult(message, room) {
+        message = message.toObject();
+        message.oldId = pMessage._id;
+        emitToClients({
+          type: 'createdMessage',
+          body: message 
+        });
+        emitToClients({
+          type: 'updatedRoom',
+          body: room 
+        });
+        res.json(message);
+    };
   })
 
-router.route('/messages')
+  router.route('/messages')
   .get(function(req, res, next) {
     Message.find({}, null, function(err, messages) {
       if (err) {
@@ -135,7 +157,7 @@ router.route('/messages')
   });
 router.route('/user')
   .get(function(req, res, next) {
-    var user = createUser()
+    var user = createUser({})
     res.json(user);
   })
   .post(function(req, res, next) {

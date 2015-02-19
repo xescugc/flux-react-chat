@@ -9,7 +9,6 @@ module.exports = {
     },{
       responseType: 'json'
     }).then(function(response){
-      console.log('success', response);
       ChatServerActionCreators.createdRoom(response)
     }).catch(function(response){
       console.log('error', response);
@@ -22,7 +21,6 @@ module.exports = {
     },{
       responseType: 'json'
     }).then(function(response) {
-      console.log(response);
       ChatServerActionCreators.createdMessage(response);
     }).catch(function(response) {
       console.log('error', response);
@@ -33,7 +31,6 @@ module.exports = {
     qwest.get('/api/rooms',{},{
       responseType: 'json'
     }).then(function(response){
-      console.log('success', response);
       ChatServerActionCreators.fetchedRooms(response);
     }).catch(function(response){
       console.log('error', response);

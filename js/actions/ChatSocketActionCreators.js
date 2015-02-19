@@ -16,5 +16,12 @@ module.exports = {
       type:     ActionTypes.NEW_MESSAGE,
       message:  message
     })
+  },
+
+  updatedRoom: function(room) {
+    ChatAppDispatcher.handleSocketAction({
+      type: ActionTypes.UPDATED_ROOM,
+      room: room
+    });
   }
 }
