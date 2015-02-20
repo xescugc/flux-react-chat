@@ -67,7 +67,9 @@ var MessageSection = React.createClass({
           {messagesListItems}
         </div>
         <div className='panel-footer'>
-          <MessageInput />
+          <MessageInput 
+            room={this.state.room}
+          />
         </div>
       </div>
     );

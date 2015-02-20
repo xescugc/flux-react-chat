@@ -8,7 +8,7 @@ var MessageItem = React.createClass({
 
   render: function() {
     var icon = this.props.message.isCreated ? 'ok' : 'time';
-    var date = new Date(this.props.message.date).toLocaleFormat();
+    var date = new Date(this.props.message.date).toLocaleString();
     var mediaRight, mediaLeft, textAlign, iconPosition;
     if (this.props.currentUser.img === this.props.message.author.img) {
       mediaRight =
