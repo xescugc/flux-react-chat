@@ -20,6 +20,11 @@ var getRoomItem = function(room) {
 };
 
 var RoomSection = React.createClass({
+
+  getInitialState: function() {
+    return getStateFromStores();
+  },
+
   componentDidMount: function() {
     RoomStore.addChangeListener(this._onChange);
   },
