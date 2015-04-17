@@ -175,7 +175,7 @@ app.get('/_routes', function(req, res, next) {
 
 var server = http.listen((process.env.PORT || 5000), function () {
 
-  var host = server.address().addressr;
+  var host = server.address().address;
   var port = server.address().port;
 
   console.log('Express app listening at http://%s:%s', host, port);
